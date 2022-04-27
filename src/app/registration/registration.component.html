@@ -1,0 +1,58 @@
+<div class ="container" fxLayoutAlign="center center" fxFlexFill>
+    <mat-card fxFlex="30">
+        <mat-toolbar fxLayoutAlign="center center" color="white">Registration</mat-toolbar>
+        <form [formGroup]="registrationForm" (ngSubmit)="Register()" fxLayoutAlign="strech" fxLayout="column">
+            <mat-form-field>
+                <mat-label>Full Name</mat-label>
+                <input matInput formControlName="name">
+                <mat-error *ngIf="hasError('name','required')">
+                  Name is required
+                </mat-error>              
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Gender</mat-label>                
+                <select matNativeControl required>
+                    <option value="male">Male</option>
+                    <option value="female">female</option>
+                    <option value="trans">Transgender</option>
+                    <option value="other">Others</option>
+                </select>              
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Age</mat-label>
+                <input matInput type="number" formControlName="age">
+                <mat-error *ngIf="hasError('age','required')">
+                  Age is required
+                </mat-error>              
+              </mat-form-field>
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" required email>
+              <mat-error *ngIf="hasError('email','required')">
+                Email is required
+              </mat-error>              
+            </mat-form-field>
+          
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password">
+                <mat-error *ngIf="hasError('password','required')">
+                    Password is required
+                  </mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Confirm Password</mat-label>
+                <input matInput type="password" formControlName="confirmpassword">
+                <mat-error *ngIf="hasError('confirmpassword','required')">
+                    Confirm password is required
+                  </mat-error>
+              </mat-form-field>
+              <button mat-raised-button type="submit">Register</button>
+              <div class="row">
+                <div class="col-sm-12" align="right" style="margin-top: 15px;">
+                  <a routerLink="/login">Already Registered? Click to Login!</a>
+                </div>
+              </div>              
+          </form>                    
+    </mat-card>
+</div>

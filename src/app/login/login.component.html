@@ -1,0 +1,28 @@
+<div class ="container" fxLayoutAlign="center center" fxFlexFill>
+    <mat-card fxFlex="30">
+        <mat-toolbar fxLayoutAlign="center center" color="white">Login</mat-toolbar>
+        <form [formGroup]="loginForm" fxLayoutAlign="strech" fxLayout="column" fxLayoutGap="15px">
+            <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="username">
+              <mat-error *ngIf="hasError('username','required')">
+                Username is required
+              </mat-error>              
+            </mat-form-field>
+          
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password">
+                <mat-error *ngIf="hasError('password','required')">
+                    Password is required
+                  </mat-error>
+              </mat-form-field>
+              <button mat-raised-button type="submit">Login</button>
+              <div class="row">
+                <div class="col-sm-12" align="right">
+                  <a routerLink="/registration">New User? Click to Register!</a>
+                </div>
+              </div>              
+          </form>                    
+    </mat-card>
+</div>

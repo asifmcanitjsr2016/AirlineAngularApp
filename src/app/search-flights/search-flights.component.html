@@ -1,0 +1,69 @@
+<div fxLayout="row wrap" fxLayoutAlign="center">
+    <div fxFlex="60%" fxLayout="row wrap" fxLayoutAlign="center">        
+    <mat-card fxFlex="100%">
+        <mat-toolbar color="white">Search Flights</mat-toolbar>
+        <form fxLayoutAlign="strech" fxLayout="column" fxLayoutGap="15px">
+             <div class="space"></div>                   
+            <mat-radio-group name="opList" fxFlex="100%" fxLayout="row wrap">
+                <mat-radio-button value="1" [checked]="true" fxFlex="50%">One way</mat-radio-button>
+                <mat-radio-button value="2" fxFlex="50%">Round trip</mat-radio-button>
+            </mat-radio-group>
+                
+            
+                                            
+            
+          <div fxLayout="row wrap" fxFlex="100%">
+            <mat-form-field appearance="outline" fxFlex="40%">                                    
+                <mat-label>From</mat-label>
+                <input matInput type="text">                                      
+            </mat-form-field>
+            <div fxFlex="10%" fxLayout="row" fxLayoutAlign="space-around start">
+                <button mat-flat-button [ngStyle]="{'margin-top':'10px'}">
+                    <mat-icon color="primary">compare_arrows</mat-icon>
+                </button>
+            </div>
+            <mat-form-field appearance="outline" fxFlex="40%">
+                <mat-label>To</mat-label>
+                <input matInput type="text">                                        
+            </mat-form-field>
+          </div>
+          
+          <div fxLayout="row wrap" fxFlex="100%">
+          <mat-form-field class="example-full-width" appearance="outline" fxFlex="40%">
+            <mat-label>Depart on</mat-label>
+            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <div fxFlex="10%"></div>
+        <mat-form-field appearance="outline" fxFlex="40%">
+          <mat-label>Class of travel</mat-label>                
+                <select matNativeControl>
+                    <option value="Economy">Economy</option>
+                    <option value="Business">Business</option>                    
+                </select>              
+            </mat-form-field>              
+        </div>
+            <div fxLayout="row wrap" fxFlex="100%">
+                <div fxFlex="40%">
+                    <div fxFlex="100%" fxShow="false">
+                    <mat-form-field class="example-full-width" appearance="outline" >
+                        <mat-label>Return on</mat-label>
+                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>    
+                    </div>
+                </div>            
+                <div fxFlex="10%"></div>
+                <div fxFlex="40%" fxLayoutAlign="end">
+                    <button mat-raised-button type="submit">Search Flights</button>
+                </div>
+                
+            </div>                                       
+        </form>                    
+    </mat-card>
+    </div>    
+</div>
