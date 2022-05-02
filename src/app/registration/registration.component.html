@@ -1,31 +1,32 @@
-<div class ="container" fxLayoutAlign="center center" fxFlexFill>
-    <mat-card fxFlex="30">
-        <mat-toolbar fxLayoutAlign="center center" color="white">Registration</mat-toolbar>
-        <form [formGroup]="registrationForm" (ngSubmit)="Register()" fxLayoutAlign="strech" fxLayout="column">
-            <mat-form-field>
+<div  fxLayoutAlign="center" fxFlexFill>
+<div fxFlex="40" style="margin-top: 10px;">
+    <mat-card style="padding-top:0px">
+        <mat-toolbar style="padding-top:0px" style="height:30px;" fxLayoutAlign="center start" color="white">Registration</mat-toolbar>
+        <form [formGroup]="registrationForm" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)" fxLayoutAlign="strech" fxLayout="column wrap" fxLayoutGap="-8px">
+            <mat-form-field appearance="outline">
                 <mat-label>Full Name</mat-label>
                 <input matInput formControlName="name">
                 <mat-error *ngIf="hasError('name','required')">
                   Name is required
                 </mat-error>              
               </mat-form-field>
-              <mat-form-field>
+              <mat-form-field appearance="outline">
                 <mat-label>Gender</mat-label>                
-                <select matNativeControl required>
-                    <option value="male">Male</option>
+                <select matNativeControl formControlName="gender">
+                    <option value="male" selected>Male</option>
                     <option value="female">female</option>
                     <option value="trans">Transgender</option>
                     <option value="other">Others</option>
                 </select>              
               </mat-form-field>
-              <mat-form-field>
+              <mat-form-field appearance="outline">
                 <mat-label>Age</mat-label>
                 <input matInput type="number" formControlName="age">
                 <mat-error *ngIf="hasError('age','required')">
                   Age is required
                 </mat-error>              
               </mat-form-field>
-            <mat-form-field>
+            <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
               <input matInput formControlName="email" required email>
               <mat-error *ngIf="hasError('email','required')">
@@ -33,18 +34,21 @@
               </mat-error>              
             </mat-form-field>
           
-            <mat-form-field>
+            <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
-                <input matInput type="password" formControlName="password">
+                <input matInput type="password" formControlName="password" (change)="onPasswordChange()">
                 <mat-error *ngIf="hasError('password','required')">
                     Password is required
                   </mat-error>
               </mat-form-field>
-              <mat-form-field>
+              <mat-form-field appearance="outline">
                 <mat-label>Confirm Password</mat-label>
-                <input matInput type="password" formControlName="confirmpassword">
+                <input matInput type="password" formControlName="confirmpassword" (change)="onPasswordChange()">
                 <mat-error *ngIf="hasError('confirmpassword','required')">
                     Confirm password is required
+                  </mat-error>
+                  <mat-error *ngIf="hasError('confirmpassword','mismatch')">
+                    password do not match
                   </mat-error>
               </mat-form-field>
               <button mat-raised-button type="submit">Register</button>
@@ -55,4 +59,5 @@
               </div>              
           </form>                    
     </mat-card>
+  </div>
 </div>

@@ -10,6 +10,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatMenuModule} from '@angular/material/menu';
 
 const MaterialComponents=[
   FlexLayoutModule,
@@ -23,7 +25,9 @@ const MaterialComponents=[
   MatRadioModule,
   MatNativeDateModule,
   MatIconModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatSnackBarModule,
+  MatMenuModule
 ]
 
 @NgModule({

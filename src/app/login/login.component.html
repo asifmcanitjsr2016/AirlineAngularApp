@@ -1,7 +1,7 @@
-<div class ="container" fxLayoutAlign="center center" fxFlexFill>
-    <mat-card fxFlex="30">
+<div fxLayoutAlign="center start" fxFlexFill>
+    <mat-card fxFlex="30" style="margin-top:20px;">
         <mat-toolbar fxLayoutAlign="center center" color="white">Login</mat-toolbar>
-        <form [formGroup]="loginForm" fxLayoutAlign="strech" fxLayout="column" fxLayoutGap="15px">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" fxLayoutAlign="strech" fxLayout="column" fxLayoutGap="15px">
             <mat-form-field>
               <mat-label>Username</mat-label>
               <input matInput formControlName="username">
@@ -12,7 +12,10 @@
           
             <mat-form-field>
                 <mat-label>Password</mat-label>
-                <input matInput type="password" formControlName="password">
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>                
                 <mat-error *ngIf="hasError('password','required')">
                     Password is required
                   </mat-error>
