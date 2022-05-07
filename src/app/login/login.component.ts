@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       this._loginService.LoginUser(this.login)
       .subscribe(
       data => {
-        localStorage.setItem('loginDetails',JSON.stringify(data));
+        sessionStorage.setItem('loginDetails',JSON.stringify(data));
         // let storedData=sessionStorage.getItem('loginDetails');
         // let item = storedData!=null?JSON.parse(storedData):'{}';
 

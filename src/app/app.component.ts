@@ -16,6 +16,22 @@ export class AppComponent {
   userProfile:any;
 
   constructor(private _shared:SharedService,private router: Router){
+    
+    let storedData=sessionStorage.getItem('loginDetails');
+    let data = storedData!=null?JSON.parse(storedData):null;
+    this.userProfile=data;
+    
+    if(data?.usertype=='Admin'){
+      this.isAdmin=true;
+      this.isLoggedIn=true;
+    }
+    else if(data?.usertype == 'User'){
+      this.isUser=true;
+      this.isLoggedIn=true;
+    }
+    else{
+      this.isLoggedIn=false;
+    }
     this._shared.getEmittedValue().subscribe(res => this.LoginDataReceived(res));
   }
 
@@ -38,9 +54,7 @@ export class AppComponent {
     this.isAdmin=false;
     this.isUser=false;
     this.isLoggedIn=false;
-    localStorage.removeItem('loginDetails');
-    let storedData=localStorage.getItem('loginDetails');
-    let item = storedData!=null?JSON.parse(storedData):null;
+    sessionStorage.removeItem('loginDetails');    
     this.router.navigate([""]);
   }
 

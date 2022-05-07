@@ -96,7 +96,7 @@ export class BookingComponent implements OnInit {
   loadData(){
     this._spinner.show();    
     
-        let storedData=localStorage.getItem('loginDetails');
+        let storedData=sessionStorage.getItem('loginDetails');
         let item = storedData!=null?JSON.parse(storedData):'{}';
       this._bookingService.getAllTickets(item.userid)
       .subscribe(

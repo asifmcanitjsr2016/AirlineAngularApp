@@ -76,7 +76,7 @@ export class AirlineDetailsComponent implements OnInit {
   onSubmit() {
     if (this.passengersControl.valid) {
       
-      let storedData = localStorage.getItem('loginDetails');
+      let storedData = sessionStorage.getItem('loginDetails');
       let item = storedData != null ? JSON.parse(storedData) : '{}';
       this.alldata.userID = item.userid;
       this.alldata.userName = item.username;
