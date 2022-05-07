@@ -33,4 +33,73 @@ export class BookingService {
          })
     );
   }
+
+  BookTicket(searchData: any): Observable<any>{
+    
+    const headers = { 'content-type': 'application/json'}  
+    const body=JSON.stringify(searchData);
+
+    return this._http.post<any>(environment.baseUrl + '/booking', body, {'headers':headers})
+    .pipe(
+      map(res =>{
+        console.log("data:", res);
+        return res;
+      }),      
+         catchError((err) => {
+           console.error(err);
+           throw err;
+         })
+    );
+  }
+
+  getTicketByPnr(pnr:any): Observable<any>{
+    
+    const headers = { 'content-type': 'application/json'}      
+
+    return this._http.get<any>(environment.baseUrl + '/ticket?pnr='+pnr, {'headers':headers})
+    .pipe(
+      map(res =>{
+        console.log("data:", res);
+        return res;
+      }),      
+         catchError((err) => {
+           console.error(err);
+           throw err;
+         })
+    );
+  }
+
+  getAllTickets(emialId:any): Observable<any>{
+    
+    const headers = { 'content-type': 'application/json'}      
+
+    return this._http.get<any>(environment.baseUrl + '/booking/history?emailID='+emialId, {'headers':headers})
+    .pipe(
+      map(res =>{
+        console.log("data:", res);
+        return res;
+      }),      
+         catchError((err) => {
+           console.error(err);
+           throw err;
+         })
+    );
+  }
+
+  cancelTicket(pnrNumber:any): Observable<any>{
+    
+    const headers = { 'content-type': 'application/json'}      
+
+    return this._http.delete<any>(environment.baseUrl + '/booking/cancel?pnr='+pnrNumber, {'headers':headers})
+    .pipe(
+      map(res =>{
+        console.log("data:", res);
+        return res;
+      }),      
+         catchError((err) => {
+           console.error(err);
+           throw err;
+         })
+    );
+  }
 }

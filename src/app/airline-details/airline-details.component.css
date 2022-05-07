@@ -1,0 +1,17 @@
+.mat-raised-button{
+    background: green;
+    color: white;
+ }
+ .closeBtn{
+    background: red;
+    color: white;
+ }
+ section {
+    display: table;
+  }
+ .example-button-row {
+    display: table-cell;
+    margin-top: 9px;
+    width: 20px;
+  }
+  

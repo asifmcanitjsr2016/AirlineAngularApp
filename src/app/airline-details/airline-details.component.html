@@ -1,0 +1,104 @@
+<h1 mat-dialog-title>Ticket Details</h1>
+<div mat-dialog-content>
+    <div fxFlex="100%" fxLayout="column" fxLayoutGap="15px">
+        <div fxFlex="100%" fxLayout="row" fxLayoutGap="15px">
+            <div fxFlex="33.33%">
+                <p>Airline: {{ticketDetails.flightName}}</p>
+            </div>
+            <div fxFlex="33.33%">
+                <p>Flight Number: {{ticketDetails.flightNumber}}</p>
+            </div>
+            <div fxFlex="33.33%">
+                <p>Journey Date: {{ticketDetails.journeyDate | date:'medium'}}</p>
+            </div>
+        </div>
+
+        <div fxFlex="100%" fxLayout="row" fxLayoutGap="15px">
+            <div fxFlex="33.33%">
+                <p>From: {{ticketDetails.fromPlace}}</p>
+            </div>
+            <div fxFlex="33.33%">
+                <p>To: {{ticketDetails.toPlace}}</p>
+            </div>
+            <div fxFlex="33.33%">
+                <p>Price: {{ticketDetails.price}}</p>
+            </div>
+
+        </div>
+
+        <div fxFlex="100%" fxLayout="row" fxLayoutGap="15px">
+            <div fxFlex="33.33%">
+                <p>Total Availability: {{ticketDetails.totalAvaiability}}</p>
+            </div>
+            <div fxFlex="33.33%">
+
+            </div>
+            <div fxFlex="33.33%">
+
+            </div>
+        </div>
+        <form [formGroup]="passengerForm" fxFlex="100%" fxLayout="column" fxLayoutGap="15px" novalidate>
+            <div formArrayName='passengers' *ngFor="let obj of passengersControl.controls; let i = index">
+                <div [formGroupName]="i" fxFlex="100%" fxLayout="row" fxLayoutGap="5px">
+                <mat-form-field appearance="outline">
+    
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" formControlName="name">
+                    <!-- <mat-error *ngIf="from.invalid || from.touched">From is required</mat-error> -->
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Gender</mat-label>
+                    <select matNativeControl formControlName="gender">
+                        <option value="male" selected>Male</option>
+                        <option value="female">female</option>
+                        <option value="trans">Transgender</option>
+                        <option value="other">Others</option>
+                    </select>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Age</mat-label>
+                    <input matInput type="number" formControlName="age">
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Class Type</mat-label>
+                    <select matNativeControl formControlName="classType">
+                        <option value="economy" selected>Economy</option>
+                        <option value="business">Business</option>
+                    </select>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Meal</mat-label>
+                    <select matNativeControl formControlName="optForMeal">
+                        <option value="none" selected>None</option>
+                        <option value="veg">Veg</option>
+                        <option value="non-veg">Non-Veg</option>
+                    </select>
+                </mat-form-field>                                               
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Seat No.</mat-label>
+                    <input matInput type="number" formControlName="seatNo">
+                </mat-form-field>
+                <section>
+                    <div class="example-button-row">
+                        <button mat-raised-button (click)="add(i)">+</button>                
+                        <button mat-raised-button class="closeBtn" fxFlex="column" (click)="remove(i)">-</button>
+                    </div>
+                </section>
+                    
+                </div>                
+            </div>
+        </form>
+    </div>
+    
+</div>
+
+<div mat-dialog-actions align="end">
+    <button mat-raised-button class="closeBtn" mat-dialog-close>Close</button>
+    <button mat-raised-button (click)="onSubmit()">Book Now</button>
+
+</div>

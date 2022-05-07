@@ -1,0 +1,181 @@
+<mat-tab-group color="primary" (selectedTabChange)="onChange($event)">    
+    <mat-tab label="Search Flight"><app-search-flights></app-search-flights></mat-tab>
+    
+    <mat-tab label="Search Ticket">
+        <div fxLayout="column" fxFlex="100%">
+        <div fxLayout="column" fxFlex="100%">
+            <div fxFlex="100%" fxLayout="row">
+                <div fxFlex="30%"></div>
+                <div div fxFlex="30%" fxLayout="column" fxLayoutAlign="stretch">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Search</mat-label>
+                        <input matInput class="inputField" placeholder="Enter PNR Number" name="inputValue" [(ngModel)]="inputValue">
+                      </mat-form-field>
+                </div>
+                <div fxFlex="5%" style="margin-top: 15px;" fxLayout="column">
+                    <button mat-raised-button (click)="searchTicket(inputValue)"><mat-icon>search</mat-icon></button>
+                </div>
+            </div>
+                          
+        </div>  
+              
+    <div *ngIf="isDataAvailable1" style="margin-top: 20px;" fxFlex="100%" fxLayout="column" fxLayoutGap="15px">        
+        <div fxFlex="60%" fxLayoutAlign="center" fxLayout="row" fxLayoutGap="15px">
+            <div fxFlex="20%">
+                <p>PNR Number: {{ticketDetails.pnrNumber}}</p>
+            </div>
+            <div fxFlex="20%">
+                <p>User ID: {{ticketDetails.userID}}</p>
+            </div>
+            <div fxFlex="20%">
+                <p>User Name: {{ticketDetails.userName}}</p>
+            </div>
+        </div>
+
+        <div fxFlex="60%" fxLayoutAlign="center" fxLayout="row" fxLayoutGap="15px">
+            <div fxFlex="20%">
+                <p>From: {{ticketDetails.fromPlace}}</p>
+            </div>
+            <div fxFlex="20%">
+                <p>To: {{ticketDetails.toPlace}}</p>
+            </div>
+            <div fxFlex="20%">
+                <p>Journey Date: {{ticketDetails.doj | date:'medium'}}</p>
+            </div>
+        </div>
+
+        <div fxFlex="60%" fxLayoutAlign="center" fxLayout="row" fxLayoutGap="15px">
+            <div fxFlex="20%">
+                <p>Flight Number: {{ticketDetails.flightNumber}}</p>
+            </div>
+            <div fxFlex="20%">
+                
+            </div>
+            <div fxFlex="20%">
+                
+            </div>
+        </div>
+
+        <div fxFlex="100%" fxLayoutAlign="center" fxLayout="row" fxLayoutGap="15px">
+            <table mat-table fxFlex="60%" [dataSource]="dataSource1">
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                    <td mat-cell *matCellDef="let element">{{element.name}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="gender">
+                    <th mat-header-cell *matHeaderCellDef>Gender</th>
+                    <td mat-cell *matCellDef="let element">{{element.gender}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="age">
+                    <th mat-header-cell *matHeaderCellDef>Age</th>
+                    <td mat-cell *matCellDef="let element">{{element.age}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="classType">
+                    <th mat-header-cell *matHeaderCellDef>Class</th>
+                    <td mat-cell *matCellDef="let element">{{element.classType}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="optForMeal">
+                    <th mat-header-cell *matHeaderCellDef>Meal</th>
+                    <td mat-cell *matCellDef="let element">{{element.optForMeal}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="seatNo">
+                    <th mat-header-cell *matHeaderCellDef>Seat No.</th>
+                    <td mat-cell *matCellDef="let element">{{element.seatNo}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="loader">
+                    <mat-footer-cell *matFooterCellDef>
+                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    </mat-footer-cell>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+            </table>
+        </div>
+        <div align="center">
+            <button mat-raised-button>Print</button>
+        </div>
+    </div>
+</div>
+    </mat-tab>
+
+    <mat-tab label="Booking History">
+        <div fxLayout="column" fxFlex="100%">
+            <mat-form-field appearance="standard">
+                <mat-label>Filter</mat-label>
+                <input matInput class="inputField" (keyup)="applyFilter($event)" placeholder="Ex. ABC00" #input>
+              </mat-form-field>
+            
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"> 
+
+                    <ng-container matColumnDef="flightNumber">
+                        <th mat-header-cell *matHeaderCellDef>Airline</th>
+                        <td mat-cell *matCellDef="let element">{{element.flightNumber}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="pnrNumber">
+                        <th mat-header-cell *matHeaderCellDef>PNR Number</th>
+                        <td mat-cell *matCellDef="let element">{{element.pnrNumber}}</td>
+                    </ng-container>                    
+
+                    <ng-container matColumnDef="fromPlace">
+                        <th mat-header-cell *matHeaderCellDef>From</th>
+                        <td mat-cell *matCellDef="let element">{{element.fromPlace}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="toPlace">
+                        <th mat-header-cell *matHeaderCellDef>To</th>
+                        <td mat-cell *matCellDef="let element">{{element.toPlace}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="doj">
+                        <th mat-header-cell *matHeaderCellDef>Journey Date</th>
+                        <td mat-cell *matCellDef="let element">{{element.doj | date:'medium'}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td mat-cell *matCellDef="let element">
+                            <!-- <button mat-raised-button color="primary" (click)="getFlight(element.flightNumber)"
+                                name="bookFlight">Book</button> -->
+                                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                                    <button mat-icon-button color="primary" (click)="viewDetails(element)" name="viewDetails">
+                                        View
+                                    </button>
+                                    <button mat-icon-button color="warn" (click)="cancelTicket(element.pnrNumber)" name="cancelTicket">
+                                        Cancel
+                                    </button>
+                                </div>
+                                
+                        </td>
+                        
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="loader">
+                        <mat-footer-cell *matFooterCellDef>
+                            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                        </mat-footer-cell>
+                    </ng-container>
+    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                      </tr>
+                </table>
+                <mat-paginator class="pagScroll" [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons 
+                 aria-label="Select page of periodic elements">
+                </mat-paginator>
+            
+        </div>
+    </mat-tab>    
+</mat-tab-group>

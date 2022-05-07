@@ -7,6 +7,8 @@ import { SucessMessageComponent } from '../sucess-message/sucess-message.compone
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { FlightsDetails } from '../models/FlightsDetails';
+import { MatDialog } from '@angular/material/dialog';
+import { AirlineDetailsComponent } from '../airline-details/airline-details.component';
 
 @Component({
   selector: 'app-search-flights',
@@ -24,6 +26,7 @@ export class SearchFlightsComponent implements OnInit {
   returnDate:any;
   dataSource!: FlightsDetails[];
   getData!:any;  
+  isDataAvailable=false;
   displayedColumns!: string[];
   searchflight:SearchFlightsModel={
     fromPlace:"",
@@ -36,53 +39,15 @@ export class SearchFlightsComponent implements OnInit {
 
   constructor(private _spinner:NgxSpinnerService,
     private _bookingService:BookingService,
-    private _snackbar:MatSnackBar
+    private _snackbar:MatSnackBar, private dialog:MatDialog
     ) {    
       
-      this.displayedColumns = ['flightName', 'flightFrom', 'flightTo', 'flightPrice', 'book'];      
+      this.displayedColumns = ['flightName', 'flightFrom', 'flightTo', 'flightPrice', 'action'];      
       const currentYear = new Date().getFullYear();
       this.minDate = new Date();
       this.maxDate = new Date(currentYear + 1, 11, 31);    
    }
-   ngOnInit(): void {
-
-    //this._spinner.show();
-
-    // this.searchflight.classType='Business';
-    // this.searchflight.date='2022-04-24';
-    // //this.datetime=this.returnDate;
-    // this.searchflight.returnDate='';
-    // this.searchflight.fromPlace='Kolkata';
-    // this.searchflight.toPlace='Banglore';
-    // this.searchflight.way='one way';
-
-
-    
-    // this._bookingService.SearchFlights(this.searchflight)
-    // .subscribe(
-    //   data => {
-    //     //location.reload();
-    //     this._spinner.hide();
-    //     this._snackbar.openFromComponent(SucessMessageComponent, {
-    //       duration: 5000,
-    //       panelClass: 'sucessSnackbar',
-    //       horizontalPosition: 'end',
-    //       data: "data successfully fetched"
-    //     });
-    //     console.log("Observable Data:",data);        
-    //     this.dataSource=data;
-    //   },
-    //   err => {
-    //     let errMessage = err;
-    //     this._spinner.hide();
-    //     console.log(errMessage);
-    //     this._snackbar.openFromComponent(ErrorMessageComponent, {
-    //       duration: 5000,
-    //       panelClass: 'errorSnackbar',
-    //       horizontalPosition: 'end',
-    //       data: errMessage
-    //     });
-    //   });
+   ngOnInit(): void {    
     
     this.departDate=new Date();
     this.types = [
@@ -104,8 +69,11 @@ export class SearchFlightsComponent implements OnInit {
     this.searchflight.fromPlace=this.searchflight.toPlace;
     this.searchflight.toPlace=temp;
   }
-  getFlight(flightNumber:any){
-
+  viewDetails(bookingDetails:any){
+    this.dialog.open(AirlineDetailsComponent, {
+      data:bookingDetails,
+      width:'60%'
+    });
   }
   onSubmit(data:any){
     this._spinner.show();
@@ -127,6 +95,7 @@ export class SearchFlightsComponent implements OnInit {
         //   data: "data successfully fetched"
         // });
         console.log("Observable Data:",data);
+        this.isDataAvailable=true;
         this.dataSource=data;
       },
       err => {

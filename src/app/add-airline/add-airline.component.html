@@ -1,0 +1,259 @@
+<mat-tab-group color="primary" (selectedTabChange)="onChange($event)" [selectedIndex]="selectedIndex">  
+    <mat-tab label="Flight Details">
+        <div fxLayout="column" fxFlex="100%">
+            <mat-form-field appearance="standard">
+                <mat-label>Filter</mat-label>
+                <input matInput class="inputField" (keyup)="applyFilter($event)" placeholder="Ex. ABC00" #input>
+              </mat-form-field>
+            
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"> 
+
+                    <ng-container matColumnDef="flightNumber">
+                        <th mat-header-cell *matHeaderCellDef>Flight No.</th>
+                        <td mat-cell *matCellDef="let element">{{element.flightNumber}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="airline">
+                        <th mat-header-cell *matHeaderCellDef>Flight Name</th>
+                        <td mat-cell *matCellDef="let element">{{element.airline}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="toPlace">
+                        <th mat-header-cell *matHeaderCellDef>To</th>
+                        <td mat-cell *matCellDef="let element">{{element.toPlace}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fromPlace">
+                        <th mat-header-cell *matHeaderCellDef>From</th>
+                        <td mat-cell *matCellDef="let element">{{element.fromPlace}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="totalBusinessClassSeat">
+                        <th mat-header-cell *matHeaderCellDef>Business Class Seat</th>
+                        <td mat-cell *matCellDef="let element">{{element.totalBusinessClassSeat}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="totalNonBusinessClassSeat">
+                        <th mat-header-cell *matHeaderCellDef>Non-Business Class Seat</th>
+                        <td mat-cell *matCellDef="let element">{{element.totalNonBusinessClassSeat}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="price">
+                        <th mat-header-cell *matHeaderCellDef>Price</th>
+                        <td mat-cell *matCellDef="let element">{{element.price}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="startDateTime">
+                        <th mat-header-cell *matHeaderCellDef>Start DateTime</th>
+                        <td mat-cell *matCellDef="let element">{{element.startDateTime | date:'short'}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="endDateTime">
+                        <th mat-header-cell *matHeaderCellDef>End DateTime</th>
+                        <td mat-cell *matCellDef="let element">{{element.endDateTime | date:'short'}}</td>
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="instrumentUsed">
+                        <th mat-header-cell *matHeaderCellDef>Instrument Used</th>
+                        <td mat-cell *matCellDef="let element">{{element.instrumentUsed}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="airlineStatus">
+                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                        <td mat-cell *matCellDef="let element">{{element.airlineStatus}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="meal">
+                        <th mat-header-cell *matHeaderCellDef>Meals</th>
+                        <td mat-cell *matCellDef="let element">{{element.meal}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="noOfRows">
+                        <th mat-header-cell *matHeaderCellDef>Total Rows</th>
+                        <td mat-cell *matCellDef="let element">{{element.noOfRows}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="scheduledDays">
+                        <th mat-header-cell *matHeaderCellDef>Schedule Days</th>
+                        <td mat-cell *matCellDef="let element">{{element.scheduledDays}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td mat-cell *matCellDef="let element">
+                            <!-- <button mat-raised-button color="primary" (click)="getFlight(element.flightNumber)"
+                                name="bookFlight">Book</button> -->
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <button mat-icon-button color="primary" (click)="nextStep(element)" name="updateFlight">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn" (click)="deleteFlight(element.flightNumber)" name="deleteFlight">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                                
+                        </td>
+                        
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="loader">
+                        <mat-footer-cell *matFooterCellDef>
+                            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                        </mat-footer-cell>
+                    </ng-container>
+    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                      </tr>
+                </table>
+                <mat-paginator class="pagScroll" [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons 
+                 aria-label="Select page of periodic elements">
+                </mat-paginator>
+            
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Schedule Flight">
+        <mat-card fxFlex="60%" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center center">
+            <form [formGroup]="flightForm" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)" fxLayoutAlign="stretch" fxFlex="100%"
+                fxLayout="column" fxLayoutGap="5px">
+
+                <div fxFlex="100%" fxLayout="row" fxLayoutGap="15px">
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>Flight Number</mat-label>
+                        <input matInput type="text" formControlName="flightNumber"
+                            [(ngModel)]="flightDetails.flightNumber">
+                        <!-- <mat-error *ngIf="flightno.invalid || flightno.touched">Flight Number is
+                                            required</mat-error> -->
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>Flight Name</mat-label>
+                        <input matInput type="text" formControlName="airline" [(ngModel)]="flightDetails.airline">
+                        <!-- <mat-error *ngIf="airline.invalid || airline.touched">Flight Name is required
+                                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>Fare</mat-label>
+                        <input matInput type="number" formControlName="price" [(ngModel)]="flightDetails.price">
+                        <!-- <mat-error *ngIf="price.invalid || price.touched">Fare is required</mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100%" fxLayout="row" fxLayoutGap="15px">
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>From</mat-label>
+                        <input matInput type="text" formControlName="fromPlace" [(ngModel)]="flightDetails.fromPlace">
+                        <!-- <mat-error *ngIf="from.invalid || from.touched">From is required</mat-error> -->
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>To</mat-label>
+                        <input matInput type="text" formControlName="toPlace" [(ngModel)]="flightDetails.toPlace">
+                        <!-- <mat-error *ngIf="to.invalid || to.touched">To is required</mat-error> -->
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>Scheduled Days</mat-label>
+                        <input matInput type="text" formControlName="scheduledDays"
+                            [(ngModel)]="flightDetails.scheduledDays">
+                        <!-- <mat-error *ngIf="schedule.invalid || schedule.touched">Scheduled days is
+                                            required</mat-error> -->
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="100%" fxLayout="row" fxLayoutGap="15px">
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>Start DateTime</mat-label>
+
+                        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time"
+                            [(ngModel)]="flightDetails.startDateTime" formControlName="startDateTime">
+
+                        <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+
+                        <ngx-mat-datetime-picker #picker [enableMeridian]="true">
+                        </ngx-mat-datetime-picker>
+
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>End DateTime</mat-label>
+
+                        <input matInput [ngxMatDatetimePicker]="picker1" placeholder="Choose a date & time"
+                            [(ngModel)]="flightDetails.endDateTime" formControlName="endDateTime">
+
+                        <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
+
+                        <ngx-mat-datetime-picker #picker1 [enableMeridian]="true">
+                        </ngx-mat-datetime-picker>
+
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>Instrument Used</mat-label>
+                        <input matInput type="text" formControlName="instrumentUsed"
+                            [(ngModel)]="flightDetails.instrumentUsed">
+                        <!-- <mat-error *ngIf="instrumentUsed.invalid || instrumentUsed.touched">Instrument
+                                            is required</mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100%" fxLayout="row" fxLayoutGap="15px">
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>Toatal Business Class Seat</mat-label>
+                        <input matInput type="number" formControlName="totalBusinessClassSeat"
+                            [(ngModel)]="flightDetails.totalBusinessClassSeat">
+                        <!-- <mat-error
+                                            *ngIf="totalBusinessClassSeat.invalid || totalBusinessClassSeat.touched">
+                                            Business Class Seat is required</mat-error> -->
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>Total Non-Business Class Seat</mat-label>
+                        <input matInput type="number" formControlName="totalNonBusinessClassSeat"
+                            [(ngModel)]="flightDetails.totalNonBusinessClassSeat">
+                        <!-- <mat-error
+                                            *ngIf="totalNonBusinessClassSeat.invalid || totalNonBusinessClassSeat.touched">
+                                            Non-Business Class Seat is required</mat-error> -->
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>Airline Status</mat-label>
+                        <mat-select matNativeControl [(ngModel)]="flightDetails.airlineStatus"
+                            formControlName="airlineStatus">
+
+                            <mat-option *ngFor="let typ of statustype" [value]="typ">{{typ}}</mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100%" fxLayout="row" fxLayoutGap="15px">
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>No of Rows</mat-label>
+                        <input matInput type="number" formControlName="noOfRows" [(ngModel)]="flightDetails.noOfRows">
+                        <!-- <mat-error *ngIf="noOfRows.invalid || noOfRows.touched">No of rows is required
+                                        </mat-error> -->
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="33.33%">
+                        <mat-label>Meal</mat-label>
+                        <mat-select matNativeControl [(ngModel)]="flightDetails.meal" formControlName="meal" multiple>
+
+                            <mat-option *ngFor="let typ of mealtype" [value]="typ">{{typ}}</mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+                    <div fxFlex="33.33%"></div>
+                </div>
+                <div fxFlex="100%" fxLayout="row">
+                    <div fxFlex="90%"></div>
+                    <div fxFlex="10%">
+                        <button fxLayoutAlign="end end" mat-raised-button type="submit">{{onChangeData}}</button>
+                    </div>
+
+                </div>
+            </form>
+        </mat-card>
+    </mat-tab>        
+</mat-tab-group>

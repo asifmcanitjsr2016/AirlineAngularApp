@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { SharedService } from './services/shared.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class AppComponent {
 
   userProfile:any;
 
-  constructor(private _shared:SharedService){
+  constructor(private _shared:SharedService,private router: Router){
     this._shared.getEmittedValue().subscribe(res => this.LoginDataReceived(res));
   }
 
@@ -33,13 +34,14 @@ export class AppComponent {
     }
   }
 
-  Logout(){
+  Logout(){    
     this.isAdmin=false;
     this.isUser=false;
     this.isLoggedIn=false;
     localStorage.removeItem('loginDetails');
     let storedData=localStorage.getItem('loginDetails');
     let item = storedData!=null?JSON.parse(storedData):null;
+    this.router.navigate([""]);
   }
 
 }

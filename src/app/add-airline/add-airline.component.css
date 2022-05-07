@@ -1,0 +1,24 @@
+::ng-deep .mat-datepicker-content .mat-calendar {
+    width: 229px!important;
+    height: 300px!important;
+}
+.mat-raised-button{
+    background: green;
+    color: white;
+ }
+
+ table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td {
+    width: 5%;    
+  }
+  th.mat-header-cell, td.mat-cell {
+    text-align: center !important;
+  }

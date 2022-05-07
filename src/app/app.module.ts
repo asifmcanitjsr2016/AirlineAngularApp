@@ -12,7 +12,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { SucessMessageComponent } from './sucess-message/sucess-message.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatTableModule } from '@angular/material/table';
+import { AddAirlineComponent } from './add-airline/add-airline.component';
+import { BookingComponent } from './booking/booking.component';
+import { AirlineDetailsComponent } from './airline-details/airline-details.component';
+import { TicketDetailsDialogComponent } from './Modals/ticket-details-dialog/ticket-details-dialog.component';
+import { TicketByPnrComponent } from './ticket-by-pnr/ticket-by-pnr.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,12 @@ import { MatTableModule } from '@angular/material/table';
     RegistrationComponent,
     SearchFlightsComponent,
     SucessMessageComponent,
-    ErrorMessageComponent    
+    ErrorMessageComponent,
+    AddAirlineComponent,
+    BookingComponent,
+    AirlineDetailsComponent,
+    TicketDetailsDialogComponent,
+    TicketByPnrComponent    
   ],
   imports: [
     BrowserModule,
@@ -29,8 +38,7 @@ import { MatTableModule } from '@angular/material/table';
     BrowserAnimationsModule,    
     MaterialModule,
     NgxSpinnerModule,
-    HttpClientModule,
-    MatTableModule
+    HttpClientModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

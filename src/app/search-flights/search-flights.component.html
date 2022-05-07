@@ -1,108 +1,116 @@
 <div fxLayout="column wrap" fxLayoutGap="15px">
     <div fxFlex="10%"></div>
-<div fxLayout="row wrap" fxLayoutAlign="center">
-    <div fxFlex="60%" fxLayout="row wrap" fxLayoutAlign="center">        
-    <mat-card fxFlex="100%">
-        <mat-toolbar color="white">Search Flights</mat-toolbar>
-        <form #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm.value)" fxLayoutAlign="strech" fxLayout="column" fxLayoutGap="15px">
-             <div class="space"></div>                   
-            <mat-radio-group [(ngModel)]="searchflight.way" color="primary" name="opList" fxFlex="100%" fxLayout="row wrap">
-                <mat-radio-button value="one way" [checked]="true" fxFlex="50%" (click)="toggle()">One way</mat-radio-button>
-                <mat-radio-button value="round trip" fxFlex="50%" (click)="toggle()">Round trip</mat-radio-button>
-            </mat-radio-group>                                                                    
-            
-          <div fxLayout="row wrap" fxFlex="100%">
-            <mat-form-field appearance="outline" fxFlex="40%">                                    
-                <mat-label>From</mat-label>
-                <input matInput type="text" #from="ngModel" name="from" 
-                [(ngModel)]="searchflight.fromPlace">
-                <mat-error *ngIf="from.invalid || from.touched">From place is required</mat-error>                                      
-            </mat-form-field>
-            <div fxFlex="10%" fxLayout="row" fxLayoutAlign="space-around start">
-                <button type="button" mat-flat-button [ngStyle]="{'margin-top':'10px'}" (click)="swapPlace()">
-                    <mat-icon color="primary">compare_arrows</mat-icon>
-                </button>
-            </div>
-            <mat-form-field appearance="outline" fxFlex="40%">
-                <mat-label>To</mat-label>
-                <input matInput type="text" #to="ngModel" name="to" 
-                [(ngModel)]="searchflight.toPlace">
-                <mat-error *ngIf="to.invalid || to.touched">To place is required</mat-error>                                        
-            </mat-form-field>
-          </div>
-          
-          <div fxLayout="row wrap" fxFlex="100%">
-          <mat-form-field class="example-full-width" appearance="outline" fxFlex="40%">
-            <mat-label>Depart on</mat-label>
-            <input matInput [(ngModel)]="departDate" name="departDate" value="departDate" [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
-            
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-          <div fxFlex="10%"></div>
-        <mat-form-field appearance="outline" fxFlex="40%">
-          <mat-label>Class of travel</mat-label>                
-                <select matNativeControl [(ngModel)]="selectedItem" name="selectone">
+    <div fxLayout="row wrap" fxLayoutAlign="center">
+        <div fxFlex="60%" fxLayout="row wrap" fxLayoutAlign="center">
+            <mat-card fxFlex="100%">
+                <mat-toolbar color="white">Search Flights</mat-toolbar>
+                <form #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm.value)" fxLayoutAlign="strech"
+                    fxLayout="column" fxLayoutGap="15px">
+                    <div class="space"></div>
+                    <mat-radio-group [(ngModel)]="searchflight.way" color="primary" name="opList" fxFlex="100%"
+                        fxLayout="row wrap">
+                        <mat-radio-button value="one way" [checked]="true" fxFlex="50%" (click)="toggle()">One way
+                        </mat-radio-button>
+                        <mat-radio-button value="round trip" fxFlex="50%" (click)="toggle()">Round trip
+                        </mat-radio-button>
+                    </mat-radio-group>
 
-                    <option *ngFor="let typ of types" [value]="typ">{{typ}}</option>
-                                        
-                </select>              
-            </mat-form-field>              
+                    <div fxLayout="row wrap" fxFlex="100%">
+                        <mat-form-field appearance="outline" fxFlex="40%">
+                            <mat-label>From</mat-label>
+                            <input matInput type="text" #from="ngModel" name="from"
+                                [(ngModel)]="searchflight.fromPlace">
+                            <mat-error *ngIf="from.invalid || from.touched">From place is required</mat-error>
+                        </mat-form-field>
+                        <div fxFlex="10%" fxLayout="row" fxLayoutAlign="space-around start">
+                            <button type="button" mat-flat-button [ngStyle]="{'margin-top':'10px'}"
+                                (click)="swapPlace()">
+                                <mat-icon color="primary">compare_arrows</mat-icon>
+                            </button>
+                        </div>
+                        <mat-form-field appearance="outline" fxFlex="40%">
+                            <mat-label>To</mat-label>
+                            <input matInput type="text" #to="ngModel" name="to" [(ngModel)]="searchflight.toPlace">
+                            <mat-error *ngIf="to.invalid || to.touched">To place is required</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row wrap" fxFlex="100%">
+                        <mat-form-field class="example-full-width" appearance="outline" fxFlex="40%">
+                            <mat-label>Depart on</mat-label>
+                            <input matInput [(ngModel)]="departDate" name="departDate" value="departDate"
+                                [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <div fxFlex="10%"></div>
+                        <mat-form-field appearance="outline" fxFlex="40%">
+                            <mat-label>Class of travel</mat-label>
+                            <mat-select matNativeControl [(ngModel)]="selectedItem" name="selectone">
+
+                                <mat-option *ngFor="let typ of types" [value]="typ">{{typ}}</mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row wrap" fxFlex="100%">
+                        <mat-form-field class="example-full-width" appearance="outline" fxFlex="40%">
+                            <mat-label>Return on</mat-label>
+                            <input [disabled]='returnDateDisabled' [(ngModel)]="returnDate" value="returnDate"
+                                name="returnDate" matInput [min]="minDate" [max]="maxDate"
+                                [matDatepicker]="returnPicker">
+
+                            <mat-datepicker-toggle matSuffix [for]="returnPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #returnPicker></mat-datepicker>
+                        </mat-form-field>
+                        <div fxFlex="10%"></div>
+                        <div class="form-group" fxFlex="40%" fxLayoutAlign="end center">
+                            <button mat-raised-button type="submit">Search Flights</button>
+                        </div>
+                    </div>
+                </form>
+            </mat-card>
         </div>
-            <div fxLayout="row wrap" fxFlex="100%">                                    
-                    <mat-form-field class="example-full-width" appearance="outline" fxFlex="40%">
-                        <mat-label>Return on</mat-label>
-                        <input [disabled]='returnDateDisabled' [(ngModel)]="returnDate" value="returnDate" name="returnDate" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="returnPicker">
-                        
-                        <mat-datepicker-toggle matSuffix [for]="returnPicker"></mat-datepicker-toggle>
-                        <mat-datepicker #returnPicker></mat-datepicker>
-                      </mat-form-field>                                                    
-                <div fxFlex="10%"></div>
-                <div class="form-group" fxFlex="40%" fxLayoutAlign="end center">
-                    <button mat-raised-button type="submit">Search Flights</button>
-                </div>                
-            </div>                                       
-        </form>                    
-    </mat-card>
     </div>
-    </div> 
-<div fxLayout="row wrap" fxFlex="100%">
-    <div fxFlex="5%"></div>
-    <div fxFlex="90%" fxLayoutAligh="center center">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <div *ngIf="isDataAvailable" fxLayout="row wrap" fxFlex="100%">
+        <div fxFlex="5%"></div>
+        <div fxFlex="90%" fxLayoutAligh="center center">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-        <ng-container matColumnDef="flightName">
-            <th mat-header-cell *matHeaderCellDef>Airline</th>
-            <td mat-cell *matCellDef="let element">{{element.flightName}}</td>
-        </ng-container>
-        <ng-container matColumnDef="flightFrom">
-            <th mat-header-cell *matHeaderCellDef>From</th>
-            <td mat-cell *matCellDef="let element">{{element.fromPlace}}</td>
-        </ng-container>
-        <ng-container matColumnDef="flightTo">
-            <th mat-header-cell *matHeaderCellDef>To</th>
-            <td mat-cell *matCellDef="let element">{{element.toPlace}}</td>
-        </ng-container>
-        <ng-container matColumnDef="flightPrice">
-            <th mat-header-cell *matHeaderCellDef>Price</th>
-            <td mat-cell *matCellDef="let element">{{element.price}}</td>
-        </ng-container>
-        <ng-container matColumnDef="book">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-raised-button color="primary" (click)="getFlight(element.flightNumber)" name="bookFlight">Book</button>
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="loader">
-            <mat-footer-cell *matFooterCellDef>
-                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </mat-footer-cell>                
-        </ng-container>
-        
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-      </div>
-      <div fxFlex="5%"></div>
+                <ng-container matColumnDef="flightName">
+                    <th mat-header-cell *matHeaderCellDef>Airline</th>
+                    <td mat-cell *matCellDef="let element">{{element.flightName}}</td>
+                </ng-container>
+                <ng-container matColumnDef="flightFrom">
+                    <th mat-header-cell *matHeaderCellDef>From</th>
+                    <td mat-cell *matCellDef="let element">{{element.fromPlace}}</td>
+                </ng-container>
+                <ng-container matColumnDef="flightTo">
+                    <th mat-header-cell *matHeaderCellDef>To</th>
+                    <td mat-cell *matCellDef="let element">{{element.toPlace}}</td>
+                </ng-container>
+                <ng-container matColumnDef="flightPrice">
+                    <th mat-header-cell *matHeaderCellDef>Price</th>
+                    <td mat-cell *matCellDef="let element">{{element.price}}</td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-raised-button color="primary" (click)="viewDetails(element)"
+                            name="bookFlight">Book</button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="loader">
+                    <mat-footer-cell *matFooterCellDef>
+                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    </mat-footer-cell>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        <div fxFlex="5%"></div>
     </div>
 </div>

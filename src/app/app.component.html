@@ -2,21 +2,11 @@
     <span class="cursorChange" routerLink="/search-flights"><mat-icon>flight_takeoff</mat-icon>Let's Go</span>
     <div class="spacer"></div>
     <a mat-button routerLink="/search-flights"><mat-icon>home</mat-icon></a>
-    <button *ngIf="isAdmin" mat-button [matMenuTriggerFor]="airlineMenu">Airline</button>
-    <mat-menu #airlineMenu="matMenu">
-    <button mat-menu-item>Flight Details</button>
-    <button mat-menu-item>Schedule Flight</button>
-    <button mat-menu-item>Update Flight</button>
-    <button mat-menu-item>Delete Flight</button>    
-    </mat-menu>
-    <button *ngIf="isUser || isAdmin" mat-button [matMenuTriggerFor]="menu">Booking</button>
-    <mat-menu #menu="matMenu">
-    <button mat-menu-item>Search Flight</button>
-    <button mat-menu-item>Ticket</button>
-    <button mat-menu-item>Booking History</button>
-    <button mat-menu-item>Print Ticket</button>
-    <button mat-menu-item>Cancel Ticket</button>
-    </mat-menu>
+    <!-- <button *ngIf="isAdmin" mat-button [matMenuTriggerFor]="airlineMenu">Airline</button> -->
+    <a mat-button *ngIf="isAdmin" routerLink="/add-airline">Airline</a>
+    <a mat-button *ngIf="isUser || isAdmin" routerLink="/booking">Booking</a>
+    <!-- <button *ngIf="isUser || isAdmin" mat-button [matMenuTriggerFor]="menu">Booking</button> -->
+    
     <a *ngIf="!isLoggedIn" mat-button routerLink="/registration">Register</a>
     <a *ngIf="!isLoggedIn" mat-button routerLink="/login">Login</a>
     <a *ngIf="isLoggedIn" mat-button (click)="Logout()">{{userProfile.userid}}<mat-icon>exit_to_app</mat-icon></a>
