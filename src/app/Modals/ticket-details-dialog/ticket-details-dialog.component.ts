@@ -7,7 +7,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./ticket-details-dialog.component.css']
 })
 export class TicketDetailsDialogComponent implements OnInit {
-displayedColumns = ['name', 'gender', 'age', 'classType', 'optForMeal', 'seatNo'];
+displayedColumns = ['name', 'gender', 'age', 'optForMeal', 'seatNo'];
 dataSource!:any;  
 constructor(@Inject(MAT_DIALOG_DATA) public ticketDetails:any) { }
 

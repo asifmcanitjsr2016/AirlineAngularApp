@@ -22,34 +22,34 @@
     <div *ngIf="isDataAvailable1" style="margin-top: 20px;" fxFlex="100%" fxLayout="column" fxLayoutGap="15px">        
         <div fxFlex="60%" fxLayoutAlign="center" fxLayout="row" fxLayoutGap="15px">
             <div fxFlex="20%">
-                <p>PNR Number: {{ticketDetails.pnrNumber}}</p>
+                <p>PNR Number: {{ticketDetails1.pnrNumber}}</p>
             </div>
             <div fxFlex="20%">
-                <p>User ID: {{ticketDetails.userID}}</p>
+                <p>User ID: {{ticketDetails1.userID}}</p>
             </div>
             <div fxFlex="20%">
-                <p>User Name: {{ticketDetails.userName}}</p>
-            </div>
-        </div>
-
-        <div fxFlex="60%" fxLayoutAlign="center" fxLayout="row" fxLayoutGap="15px">
-            <div fxFlex="20%">
-                <p>From: {{ticketDetails.fromPlace}}</p>
-            </div>
-            <div fxFlex="20%">
-                <p>To: {{ticketDetails.toPlace}}</p>
-            </div>
-            <div fxFlex="20%">
-                <p>Journey Date: {{ticketDetails.doj | date:'medium'}}</p>
+                <p>User Name: {{ticketDetails1.userName}}</p>
             </div>
         </div>
 
         <div fxFlex="60%" fxLayoutAlign="center" fxLayout="row" fxLayoutGap="15px">
             <div fxFlex="20%">
-                <p>Flight Number: {{ticketDetails.flightNumber}}</p>
+                <p>From: {{ticketDetails1.fromPlace}}</p>
             </div>
             <div fxFlex="20%">
-                
+                <p>To: {{ticketDetails1.toPlace}}</p>
+            </div>
+            <div fxFlex="20%">
+                <p>Journey Date: {{ticketDetails1.doj | date:'short'}}</p>
+            </div>
+        </div>
+
+        <div fxFlex="60%" fxLayoutAlign="center" fxLayout="row" fxLayoutGap="15px">
+            <div fxFlex="20%">
+                <p>Flight Number: {{ticketDetails1.flightNumber}}</p>
+            </div>
+            <div fxFlex="20%">
+                <p>Class: {{ticketDetails1.classType}}</p>
             </div>
             <div fxFlex="20%">
                 
@@ -72,12 +72,7 @@
                 <ng-container matColumnDef="age">
                     <th mat-header-cell *matHeaderCellDef>Age</th>
                     <td mat-cell *matCellDef="let element">{{element.age}}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="classType">
-                    <th mat-header-cell *matHeaderCellDef>Class</th>
-                    <td mat-cell *matCellDef="let element">{{element.classType}}</td>
-                </ng-container>
+                </ng-container>                
 
                 <ng-container matColumnDef="optForMeal">
                     <th mat-header-cell *matHeaderCellDef>Meal</th>
@@ -100,7 +95,7 @@
             </table>
         </div>
         <div align="center">
-            <button mat-raised-button>Print</button>
+            <button mat-raised-button class="printBtn">Print</button>
         </div>
     </div>
 </div>
@@ -137,7 +132,7 @@
 
                     <ng-container matColumnDef="doj">
                         <th mat-header-cell *matHeaderCellDef>Journey Date</th>
-                        <td mat-cell *matCellDef="let element">{{element.doj | date:'medium'}}</td>
+                        <td mat-cell *matCellDef="let element">{{element.doj | date:'short'}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="action">

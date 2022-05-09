@@ -21,7 +21,7 @@
                 <p>To: {{ticketDetails.toPlace}}</p>
             </div>
             <div fxFlex="33.33%">
-                <p>Journey Date: {{ticketDetails.doj | date:'medium'}}</p>
+                <p>Journey Date: {{ticketDetails.doj | date:'short'}}</p>
             </div>
         </div>
 
@@ -30,7 +30,7 @@
                 <p>Flight Number: {{ticketDetails.flightNumber}}</p>
             </div>
             <div fxFlex="33.33%">
-                
+                <p>Class: {{ticketDetails.classType}}</p>
             </div>
             <div fxFlex="33.33%">
                 
@@ -53,12 +53,7 @@
                 <ng-container matColumnDef="age">
                     <th mat-header-cell *matHeaderCellDef>Age</th>
                     <td mat-cell *matCellDef="let element">{{element.age}}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="classType">
-                    <th mat-header-cell *matHeaderCellDef>Class</th>
-                    <td mat-cell *matCellDef="let element">{{element.classType}}</td>
-                </ng-container>
+                </ng-container>                
 
                 <ng-container matColumnDef="optForMeal">
                     <th mat-header-cell *matHeaderCellDef>Meal</th>

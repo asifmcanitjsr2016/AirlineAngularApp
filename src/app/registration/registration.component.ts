@@ -6,6 +6,7 @@ import { SucessMessageComponent } from '../sucess-message/sucess-message.compone
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { NotificationsService } from '../services/notifications.service';
 
 @Component({
   selector: 'app-registration',
@@ -26,7 +27,7 @@ export class RegistrationComponent implements OnInit {
   };
   constructor(private _loginService:LoginService,
     private _spinner:NgxSpinnerService,    
-    private _snackbar:MatSnackBar) {
+    private _notification:NotificationsService) {
     this.registrationForm = FormGroup;
    }
 
@@ -61,17 +62,16 @@ public resetForm(){
       this._loginService.RegisterUser(this.register)
       .subscribe(
       data => {
-
-        formDirective.resetForm();
-        this.registrationForm.reset();            
-        this.resetForm();
+        if(data){
+          formDirective.resetForm();
+          this.registrationForm.reset();            
+          this.resetForm();          
+          this._notification.successMessage({responseType:'Registartion', message:'You have successfully register!'});
+        }
+        else{
+          this._notification.errorMessage("Please check field values");
+        }        
         this._spinner.hide();
-        this._snackbar.openFromComponent(SucessMessageComponent, {
-          duration: 5000,
-          panelClass: 'sucessSnackbar',
-          horizontalPosition: 'end',
-          data: "Registration Successful!"
-        });
         console.log("Observable Data:",data);        
         
       },
@@ -79,12 +79,7 @@ public resetForm(){
         let errMessage = err;
         this._spinner.hide();
         console.log(errMessage);
-        this._snackbar.openFromComponent(ErrorMessageComponent, {
-          duration: 5000,
-          panelClass: 'errorSnackbar',
-          horizontalPosition: 'end',
-          data: errMessage
-        });
+        this._notification.errorMessage(errMessage);
       });      
 
     }        

@@ -9,14 +9,14 @@ export interface TicketDetails {
             bookingHistoryPNRNumber: string,
             name: string,
             gender: string,
-            age: number,
-            classType: string,
+            age: number,            
             optForMeal: string,
             seatNo: number
         }
     ],
     fromPlace: string,
     toPlace: string,
+    classType: string,
     doj: Date,
     flightNumber: string,
     appliedCoupon: string

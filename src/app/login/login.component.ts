@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { Router } from '@angular/router';
 import { SharedService } from '../services/shared.service';
+import { NotificationsService } from '../services/notifications.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
   constructor(private _loginService:LoginService,
     private _spinner:NgxSpinnerService,
-    private _snackbar:MatSnackBar,
+    private _notification:NotificationsService,
     private router: Router,
     private _shared:SharedService
     ) {
@@ -48,23 +49,22 @@ export class LoginComponent implements OnInit {
       this._loginService.LoginUser(this.login)
       .subscribe(
       data => {
-        sessionStorage.setItem('loginDetails',JSON.stringify(data));
-        // let storedData=sessionStorage.getItem('loginDetails');
-        // let item = storedData!=null?JSON.parse(storedData):'{}';
 
-        this._shared.emitter.next(data);
-        this._spinner.hide();
-        if(data?.usertype=='User' || data?.usertype=='Admin'){
-          this.router.navigate([""]);                    
-          console.log("Observable Data:",data);
+        if(data){
+          sessionStorage.setItem('loginDetails',JSON.stringify(data));
+          // let storedData=sessionStorage.getItem('loginDetails');
+          // let item = storedData!=null?JSON.parse(storedData):'{}';
+  
+          this._shared.emitter.next(data);
+          this._spinner.hide();
+          
+            this.router.navigate([""]);                    
+            console.log("Observable Data:",data);
+          
         }
+        
         else{
-          this._snackbar.openFromComponent(SucessMessageComponent, {
-            duration: 5000,
-            panelClass: 'sucessSnackbar',
-            horizontalPosition: 'end',
-            data: "Invalid Username or Password"
-          });
+          this._notification.errorMessage("Invalid Username or Password");
           console.log("Observable Data:",data);
         }                              
       },
@@ -72,12 +72,7 @@ export class LoginComponent implements OnInit {
         let errMessage = err;
         this._spinner.hide();
         console.log(errMessage);
-        this._snackbar.openFromComponent(ErrorMessageComponent, {
-          duration: 5000,
-          panelClass: 'errorSnackbar',
-          horizontalPosition: 'end',
-          data: errMessage
-        });
+        this._notification.errorMessage(errMessage);
       });
     }
 

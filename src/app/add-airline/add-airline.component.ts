@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { Flights } from '../models/Flights';
 import { AirlineService } from '../services/airline.service';
+import { NotificationsService } from '../services/notifications.service';
 import { SucessMessageComponent } from '../sucess-message/sucess-message.component';
 
 
@@ -55,7 +55,7 @@ export class AddAirlineComponent implements OnInit {
   };
   constructor(private _spinner:NgxSpinnerService,
     private _airlineService:AirlineService,
-    private _snackbar:MatSnackBar) {      
+    private _notification:NotificationsService) {      
 
     this.flightForm = new FormGroup({
       flightNumber: new FormControl('', [Validators.required]),
@@ -122,14 +122,21 @@ export class AddAirlineComponent implements OnInit {
         data => {
           
           this._spinner.hide();
-          this.loadData();
-          console.log("Observable Data:",data);
-          this.isDataAvailable=true;          
+          if(data){
+            this.loadData();            
+            this.isDataAvailable=true;
+            this._notification.successMessage({responseType:'Airline', message:'Flight has been deleted successfully!'});
+          }
+          else{
+            this._notification.errorMessage('Flight has not been deleted');
+          }
+          console.log("Observable Data:",data);   
         },
         err => {
           let errMessage = err;
           this._spinner.hide();
           console.log(errMessage);
+          this._notification.errorMessage(errMessage);
           
         });
   }
@@ -142,7 +149,9 @@ export class AddAirlineComponent implements OnInit {
         data => {
           
           this._spinner.hide();
-          
+          if(data == null || data.length == 0){
+            this._notification.infoMessage({ message: 'Airline', subText: 'No data available!' });
+          }
           console.log("Observable Data:",data);
           this.isDataAvailable=true;
           this.dataSource = new MatTableDataSource(data);
@@ -152,7 +161,7 @@ export class AddAirlineComponent implements OnInit {
           let errMessage = err;
           this._spinner.hide();
           console.log(errMessage);
-          
+          this._notification.errorMessage(errMessage);
         });
   }
   ngOnInit(): void {      
@@ -177,19 +186,20 @@ export class AddAirlineComponent implements OnInit {
       .subscribe(
       data => {
 
-        formDirective.resetForm();
-        this.flightForm.reset();            
-        this.resetForm();
-        this.flag=false;
-        this.onChangeData="Add Flight";
-        this.flightForm.controls['flightNumber'].enable();
         this._spinner.hide();
-        this._snackbar.openFromComponent(SucessMessageComponent, {
-          duration: 5000,
-          panelClass: 'sucessSnackbar',
-          horizontalPosition: 'end',
-          data: "Registration Successful!"
-        });
+        if(data){
+          formDirective.resetForm();
+          this.flightForm.reset();            
+          this.resetForm();
+          this.flag=false;
+          this.onChangeData="Add Flight";
+          this.flightForm.controls['flightNumber'].enable();          
+          this._notification.successMessage({responseType:'Airline', message:'Flight updated successfully!'});
+        }
+        else{
+          this._notification.errorMessage('Flight not updated. Please check field values');
+        }
+        
         console.log("Observable Data:",data);        
         
       },
@@ -197,12 +207,7 @@ export class AddAirlineComponent implements OnInit {
         let errMessage = err;
         this._spinner.hide();
         console.log(errMessage);
-        this._snackbar.openFromComponent(ErrorMessageComponent, {
-          duration: 5000,
-          panelClass: 'errorSnackbar',
-          horizontalPosition: 'end',
-          data: errMessage
-        });
+        this._notification.errorMessage(errMessage);
       });
       }
 else{
@@ -210,16 +215,17 @@ else{
       .subscribe(
       data => {
 
-        formDirective.resetForm();
-        this.flightForm.reset();            
-        this.resetForm();
         this._spinner.hide();
-        this._snackbar.openFromComponent(SucessMessageComponent, {
-          duration: 5000,
-          panelClass: 'sucessSnackbar',
-          horizontalPosition: 'end',
-          data: "Registration Successful!"
-        });
+        if(data){
+          formDirective.resetForm();
+          this.flightForm.reset();            
+          this.resetForm();
+          this._notification.successMessage({responseType:'Airline', message:'Flight has been added successfully!'});
+        }
+        else{
+          this._notification.errorMessage('Flight has not been added');
+        }        
+        
         console.log("Observable Data:",data);        
         
       },
@@ -227,12 +233,7 @@ else{
         let errMessage = err;
         this._spinner.hide();
         console.log(errMessage);
-        this._snackbar.openFromComponent(ErrorMessageComponent, {
-          duration: 5000,
-          panelClass: 'errorSnackbar',
-          horizontalPosition: 'end',
-          data: errMessage
-        });
+        this._notification.errorMessage(errMessage);
       });      
 
     }

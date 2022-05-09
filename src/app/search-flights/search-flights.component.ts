@@ -9,6 +9,10 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
 import { FlightsDetails } from '../models/FlightsDetails';
 import { MatDialog } from '@angular/material/dialog';
 import { AirlineDetailsComponent } from '../airline-details/airline-details.component';
+import { AuthService } from '../Shared/auth.service';
+import { Router } from '@angular/router';
+import { InfoMessageComponent } from '../info-message/info-message.component';
+import { NotificationsService } from '../services/notifications.service';
 
 @Component({
   selector: 'app-search-flights',
@@ -39,7 +43,10 @@ export class SearchFlightsComponent implements OnInit {
 
   constructor(private _spinner:NgxSpinnerService,
     private _bookingService:BookingService,
-    private _snackbar:MatSnackBar, private dialog:MatDialog
+    private _auth: AuthService,
+    private route: Router,
+    private dialog:MatDialog,
+    private _notification:NotificationsService
     ) {    
       
       this.displayedColumns = ['flightName', 'flightFrom', 'flightTo', 'flightPrice', 'action'];      
@@ -70,10 +77,18 @@ export class SearchFlightsComponent implements OnInit {
     this.searchflight.toPlace=temp;
   }
   viewDetails(bookingDetails:any){
-    this.dialog.open(AirlineDetailsComponent, {
-      data:bookingDetails,
-      width:'60%'
-    });
+    if(this._auth.isUserLoggedIn()){
+      bookingDetails.classType=this.selectedItem;
+      this.dialog.open(AirlineDetailsComponent, {
+        data:bookingDetails,
+        width:'60%'
+      });
+    }
+    else{
+      this._notification.infoMessage({message:'Login', subText:'You are not Logged In'});      
+      this.route.navigate(['login']);
+    }
+    
   }
   onSubmit(data:any){
     this._spinner.show();
@@ -88,12 +103,9 @@ export class SearchFlightsComponent implements OnInit {
       data => {
         //location.reload();
         this._spinner.hide();
-        // this._snackbar.openFromComponent(SucessMessageComponent, {
-        //   duration: 5000,
-        //   panelClass: 'sucessSnackbar',
-        //   horizontalPosition: 'end',
-        //   data: "data successfully fetched"
-        // });
+        if(data == null || data.length==0){
+          this._notification.infoMessage({message:'Flight', subText:'No data available for this root'});          
+        }        
         console.log("Observable Data:",data);
         this.isDataAvailable=true;
         this.dataSource=data;
@@ -102,12 +114,7 @@ export class SearchFlightsComponent implements OnInit {
         let errMessage = err;
         this._spinner.hide();
         console.log(errMessage);
-        // this._snackbar.openFromComponent(ErrorMessageComponent, {
-        //   duration: 5000,
-        //   panelClass: 'errorSnackbar',
-        //   horizontalPosition: 'end',
-        //   data: errMessage
-        // });
+        this._notification.errorMessage(errMessage);        
       });    
   }
 

@@ -7,6 +7,7 @@ import { TicketHistory } from '../models/TicketHistory';
 import { BookingService } from '../services/booking.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SearchFlightsComponent } from '../search-flights/search-flights.component';
+import { NotificationsService } from '../services/notifications.service';
 @Component({
   selector: 'app-airline-details',
   templateUrl: './airline-details.component.html',
@@ -22,8 +23,7 @@ export class AirlineDetailsComponent implements OnInit {
     {
       name: ['', [Validators.required]],
       gender: ['', [Validators.required]],
-      age: ['', [Validators.required]],
-      classType: ['', [Validators.required]],
+      age: ['', [Validators.required]],      
       optForMeal: ['', [Validators.required]],
       seatNo: ['', [Validators.required]]
     }
@@ -37,18 +37,9 @@ export class AirlineDetailsComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public ticketDetails: any,
     private _spinner: NgxSpinnerService,
     private _bookingService: BookingService,
+    private _notification:NotificationsService,
     private _dialogRef: MatDialogRef<SearchFlightsComponent>, private fb: FormBuilder
-  ) {
-
-
-    // this.passengerForm = new FormGroup({
-    //   name: new FormControl('', [Validators.required]),
-    //   gender: new FormControl('', [Validators.required]),
-    //   age: new FormControl('', [Validators.required]),
-    //   classType: new FormControl('', [Validators.required]),
-    //   optForMeal: new FormControl('', [Validators.required]),
-    //   seatNo: new FormControl('', [Validators.required])      
-    // });
+  ) {    
 
   }
 
@@ -59,8 +50,7 @@ export class AirlineDetailsComponent implements OnInit {
         this.fb.group({
           name: ['', [Validators.required]],
           gender: ['', [Validators.required]],
-          age: ['', [Validators.required]],
-          classType: ['', [Validators.required]],
+          age: ['', [Validators.required]],          
           optForMeal: ['', [Validators.required]],
           seatNo: ['', [Validators.required]]
         })
@@ -84,7 +74,7 @@ export class AirlineDetailsComponent implements OnInit {
       this.alldata.flightNumber = this.ticketDetails.flightNumber;
       this.alldata.fromPlace = this.ticketDetails.fromPlace;
       this.alldata.toPlace = this.ticketDetails.toPlace;
-      
+      this.alldata.classType = this.ticketDetails.classType;
       this.alldata.passengerDetails=this.passengersControl.value;
       
         console.log(this.alldata);
@@ -92,16 +82,22 @@ export class AirlineDetailsComponent implements OnInit {
           data => {
 
             this._spinner.hide();
-            this.passengerForm.reset();
-            console.log("Observable Data:", data);
-            this._dialogRef.close();
+            if(data){
+              this._notification.successMessage({responseType:'Booking', message:'Your ticket has been booked successfully!'});
+              this.passengerForm.reset();
+              this._dialogRef.close();
+            }            
+            else{
+              this._notification.errorMessage('Ticket has not been booked.');
+            }
+            console.log("Observable Data:", data);            
 
           },
           err => {
             let errMessage = err;
             this._spinner.hide();
             console.log(errMessage);
-
+            this._notification.errorMessage(errMessage);
           });
       
     }
@@ -114,8 +110,7 @@ export class AirlineDetailsComponent implements OnInit {
       this.fb.group({
         name: ['', [Validators.required]],
         gender: ['', [Validators.required]],
-        age: ['', [Validators.required]],
-        classType: ['', [Validators.required]],
+        age: ['', [Validators.required]],        
         optForMeal: ['', [Validators.required]],
         seatNo: ['', [Validators.required]]
       })

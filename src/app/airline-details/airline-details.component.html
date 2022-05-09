@@ -31,7 +31,7 @@
                 <p>Total Availability: {{ticketDetails.totalAvaiability}}</p>
             </div>
             <div fxFlex="33.33%">
-
+                <p>Class: {{ticketDetails.classType}}</p>
             </div>
             <div fxFlex="33.33%">
 
@@ -60,15 +60,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Age</mat-label>
                     <input matInput type="number" formControlName="age">
-                </mat-form-field>
-    
-                <mat-form-field appearance="outline">
-                    <mat-label>Class Type</mat-label>
-                    <select matNativeControl formControlName="classType">
-                        <option value="economy" selected>Economy</option>
-                        <option value="business">Business</option>
-                    </select>
-                </mat-form-field>
+                </mat-form-field>                
     
                 <mat-form-field appearance="outline">
                     <mat-label>Meal</mat-label>

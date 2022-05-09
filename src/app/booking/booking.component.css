@@ -1,7 +1,11 @@
 table {
     width: 100%;
   }
-  
+  .printBtn{
+    background: green;
+    color: white;
+    margin-bottom: 10px;
+  }
   .mat-form-field {
     font-size: 14px;
     width: 100%;
