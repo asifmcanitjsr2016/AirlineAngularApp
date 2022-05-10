@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl:'http://localhost:9000/api/v1.0/flight'
+  //baseUrl:'http://localhost:9000/api/v1.0/flight'
+  baseUrl:['https://airlineapimgtserv.azure-api.net/admin/api/v1.0/flight','https://airlineapimgtserv.azure-api.net/user/api/v1.0/flight','https://airlineapimgtserv.azure-api.net/login/api/v1.0/flight']
 };
 
 /*

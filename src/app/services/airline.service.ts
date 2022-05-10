@@ -17,7 +17,7 @@ export class AirlineService {
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(flightData);
 
-    return this._http.post<any>(environment.baseUrl + '/airline/inventory/add', body, {'headers':headers})
+    return this._http.post<any>(environment.baseUrl[0] + '/airline/inventory/add', body, {'headers':headers})
     .pipe(
       map(res =>{
         console.log("data:", res);
@@ -36,7 +36,7 @@ export class AirlineService {
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(flightData);
 
-    return this._http.put<any>(environment.baseUrl + '/airline/inventory/update?flightnumber='+flightData.flightNumber, body, {'headers':headers})
+    return this._http.put<any>(environment.baseUrl[0] + '/airline/inventory/update?flightnumber='+flightData.flightNumber, body, {'headers':headers})
     .pipe(
       map(res =>{
         console.log("data:", res);
@@ -53,7 +53,7 @@ export class AirlineService {
     
     const headers = { 'content-type': 'application/json'}      
 
-    return this._http.get<any>(environment.baseUrl + '/airline', {'headers':headers})
+    return this._http.get<any>(environment.baseUrl[0] + '/airline', {'headers':headers})
     .pipe(
       map(res =>{
         console.log("data:", res);
@@ -70,7 +70,7 @@ export class AirlineService {
     
     const headers = { 'content-type': 'application/json'}      
 
-    return this._http.delete<any>(environment.baseUrl + '/airline/inventory/delete?flightNumber='+flightNumber, {'headers':headers})
+    return this._http.delete<any>(environment.baseUrl[0] + '/airline/inventory/delete?flightNumber='+flightNumber, {'headers':headers})
     .pipe(
       map(res =>{
         console.log("data:", res);

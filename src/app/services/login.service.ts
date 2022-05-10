@@ -18,7 +18,7 @@ export class LoginService {
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(loginInfo);
 
-    return this._http.post<any>(environment.baseUrl + '/admin/login', body, {'headers':headers})
+    return this._http.post<any>(environment.baseUrl[2] + '/admin/login', body, {'headers':headers})
     .pipe(
       map(res =>{
         console.log("data:", res);
@@ -35,7 +35,7 @@ export class LoginService {
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(userInfo);
 
-    return this._http.post<boolean>(environment.baseUrl + '/airline/register', body, {'headers':headers})
+    return this._http.post<boolean>(environment.baseUrl[2] + '/airline/register', body, {'headers':headers})
     .pipe(
       map(res =>{
         console.log("data:", res);

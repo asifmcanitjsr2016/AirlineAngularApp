@@ -104,11 +104,14 @@ export class SearchFlightsComponent implements OnInit {
         //location.reload();
         this._spinner.hide();
         if(data == null || data.length==0){
-          this._notification.infoMessage({message:'Flight', subText:'No data available for this root'});          
+          this.isDataAvailable=false;
+          this._notification.infoMessage({message:'Flight', subText:'No record found!'});          
         }        
-        console.log("Observable Data:",data);
-        this.isDataAvailable=true;
-        this.dataSource=data;
+        else{
+          this.isDataAvailable=true;
+          this.dataSource=data;
+        }
+        console.log("Observable Data:",data);        
       },
       err => {
         let errMessage = err;

@@ -1,10 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-info-message',
   templateUrl: './info-message.component.html',
-  styleUrls: ['./info-message.component.css']
+  styleUrls: ['./info-message.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class InfoMessageComponent implements OnInit {
 

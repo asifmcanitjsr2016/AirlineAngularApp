@@ -45,12 +45,12 @@
 
                     <ng-container matColumnDef="startDateTime">
                         <th mat-header-cell *matHeaderCellDef>Start DateTime</th>
-                        <td mat-cell *matCellDef="let element">{{element.startDateTime | date:'short'}}</td>
+                        <td mat-cell *matCellDef="let element">{{element.startDateTime | date:'MMM d, yy, h:mm a'}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="endDateTime">
                         <th mat-header-cell *matHeaderCellDef>End DateTime</th>
-                        <td mat-cell *matCellDef="let element">{{element.endDateTime | date:'short'}}</td>
+                        <td mat-cell *matCellDef="let element">{{element.endDateTime | date:'MMM d, yy, h:mm a'}}</td>
                     </ng-container>
                     
                     <ng-container matColumnDef="instrumentUsed">

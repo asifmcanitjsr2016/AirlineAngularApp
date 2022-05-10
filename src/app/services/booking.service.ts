@@ -21,7 +21,7 @@ export class BookingService {
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(searchData);
 
-    return this._http.post<FlightsDetails[]>(environment.baseUrl + '/search', body, {'headers':headers})
+    return this._http.post<FlightsDetails[]>(environment.baseUrl[1] + '/search', body, {'headers':headers})
     .pipe(
       map(res =>{
         console.log("data:", res);
@@ -39,7 +39,7 @@ export class BookingService {
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(searchData);
 
-    return this._http.post<any>(environment.baseUrl + '/booking', body, {'headers':headers})
+    return this._http.post<any>(environment.baseUrl[1] + '/booking', body, {'headers':headers})
     .pipe(
       map(res =>{
         console.log("data:", res);
@@ -56,7 +56,7 @@ export class BookingService {
     
     const headers = { 'content-type': 'application/json'}      
 
-    return this._http.get<any>(environment.baseUrl + '/ticket?pnr='+pnr, {'headers':headers})
+    return this._http.get<any>(environment.baseUrl[1] + '/ticket?pnr='+pnr, {'headers':headers})
     .pipe(
       map(res =>{
         console.log("data:", res);
@@ -73,7 +73,7 @@ export class BookingService {
     
     const headers = { 'content-type': 'application/json'}      
 
-    return this._http.get<any>(environment.baseUrl + '/booking/history?emailID='+emialId, {'headers':headers})
+    return this._http.get<any>(environment.baseUrl[1] + '/booking/history?emailID='+emialId, {'headers':headers})
     .pipe(
       map(res =>{
         console.log("data:", res);
@@ -90,7 +90,7 @@ export class BookingService {
     
     const headers = { 'content-type': 'application/json'}      
 
-    return this._http.delete<any>(environment.baseUrl + '/booking/cancel?pnr='+pnrNumber, {'headers':headers})
+    return this._http.delete<any>(environment.baseUrl[1] + '/booking/cancel?pnr='+pnrNumber, {'headers':headers})
     .pipe(
       map(res =>{
         console.log("data:", res);

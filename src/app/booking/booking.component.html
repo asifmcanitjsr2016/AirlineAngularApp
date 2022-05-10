@@ -40,7 +40,7 @@
                 <p>To: {{ticketDetails1.toPlace}}</p>
             </div>
             <div fxFlex="20%">
-                <p>Journey Date: {{ticketDetails1.doj | date:'short'}}</p>
+                <p>Journey Date: {{ticketDetails1.doj | date:'MMM d, yy, h:mm a'}}</p>
             </div>
         </div>
 
@@ -132,7 +132,7 @@
 
                     <ng-container matColumnDef="doj">
                         <th mat-header-cell *matHeaderCellDef>Journey Date</th>
-                        <td mat-cell *matCellDef="let element">{{element.doj | date:'short'}}</td>
+                        <td mat-cell *matCellDef="let element">{{element.doj | date:'MMM d, yy, h:mm a'}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="action">

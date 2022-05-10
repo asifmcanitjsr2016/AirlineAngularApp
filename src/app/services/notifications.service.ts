@@ -13,7 +13,7 @@ export class NotificationsService {
 
   errorMessage(message:any){
     this._snackbar.openFromComponent(ErrorMessageComponent, {
-      duration: 5000,
+      duration:2000,
       panelClass: 'errorSnackbar',
       horizontalPosition: 'end',
       data: message
@@ -22,7 +22,7 @@ export class NotificationsService {
 
   successMessage(messageData:any){
     this._snackbar.openFromComponent(SucessMessageComponent, {
-          duration: 5000,
+          duration:2000,
           panelClass: 'successSnackbar',
           horizontalPosition: 'end',
           data: messageData
@@ -31,7 +31,7 @@ export class NotificationsService {
 
   infoMessage(message:any){
     this._snackbar.openFromComponent(InfoMessageComponent, {
-      duration: 5000,
+      duration:2000,
       panelClass: 'infoSnackbar',
       horizontalPosition: 'end',
       data: message
