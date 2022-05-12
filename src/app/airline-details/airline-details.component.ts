@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PassengerDetails } from '../models/PassengerDetails';
 import { TicketHistory } from '../models/TicketHistory';
@@ -37,7 +37,7 @@ export class AirlineDetailsComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public ticketDetails: any,
     private _spinner: NgxSpinnerService,
     private _bookingService: BookingService,
-    private _notification:NotificationsService,
+    private _notification:NotificationsService,    
     private _dialogRef: MatDialogRef<SearchFlightsComponent>, private fb: FormBuilder
   ) {    
 
@@ -62,7 +62,9 @@ export class AirlineDetailsComponent implements OnInit {
       this.passengersControl.removeAt(index);
     }
   }
-
+  closeDialog(){
+    this._dialogRef.close({data:0});
+  }
   onSubmit() {
     if (this.passengersControl.valid) {
       
@@ -85,7 +87,7 @@ export class AirlineDetailsComponent implements OnInit {
             if(data){
               this._notification.successMessage({responseType:'Booking', message:'Your ticket has been booked successfully!'});
               this.passengerForm.reset();
-              this._dialogRef.close();
+              this._dialogRef.close({data:this.passengersControl.length});
             }            
             else{
               this._notification.errorMessage('Ticket has not been booked.');

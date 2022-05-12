@@ -5,12 +5,10 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TicketDetails } from '../models/TicketDetails';
 import { BookingService } from '../services/booking.service';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { TicketDetailsDialogComponent } from '../Modals/ticket-details-dialog/ticket-details-dialog.component';
-import { InfoMessageComponent } from '../info-message/info-message.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { NotificationsService } from '../services/notifications.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-booking',
@@ -63,15 +61,21 @@ export class BookingComponent implements OnInit {
   }
 
   cancelTicket(pnr: any) {
-    this._spinner.show();
 
-    this._bookingService.cancelTicket(pnr)
-      .subscribe(
+    let dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {title:'Cancel Ticket', details:'Do you want to cancel this ticket?'},
+      width: '30%'
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      if(res.data){
+        this._spinner.show();
+        this._bookingService.cancelTicket(pnr)
+        .subscribe(
         data => {
           this._spinner.hide();
           if (data) {
             this.loadData();
-            this._notification.infoMessage({ message: 'Ticket', subText: 'Ticket has been canceled successfully!' });
+            this._notification.successMessage({ responseType: 'Ticket', message: 'Ticket has been canceled successfully!' });
           }
           else {
             this._notification.errorMessage('Ticket has not been canceled');
@@ -84,6 +88,10 @@ export class BookingComponent implements OnInit {
           console.log(errMessage);
           this._notification.errorMessage(errMessage);
         });
+      }
+
+    });
+    
   }
   searchTicket(pnr: any) {
     this._bookingService.getTicketByPnr(pnr)

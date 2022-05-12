@@ -16,8 +16,9 @@ import { AddAirlineComponent } from './add-airline/add-airline.component';
 import { BookingComponent } from './booking/booking.component';
 import { AirlineDetailsComponent } from './airline-details/airline-details.component';
 import { TicketDetailsDialogComponent } from './Modals/ticket-details-dialog/ticket-details-dialog.component';
-import { TicketByPnrComponent } from './ticket-by-pnr/ticket-by-pnr.component';
 import { InfoMessageComponent } from './info-message/info-message.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { FlightConfirmDialogComponent } from './flight-confirm-dialog/flight-confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +32,9 @@ import { InfoMessageComponent } from './info-message/info-message.component';
     BookingComponent,
     AirlineDetailsComponent,
     TicketDetailsDialogComponent,
-    TicketByPnrComponent,
-    InfoMessageComponent    
+    InfoMessageComponent,
+    ConfirmDialogComponent,
+    FlightConfirmDialogComponent    
   ],
   imports: [
     BrowserModule,
