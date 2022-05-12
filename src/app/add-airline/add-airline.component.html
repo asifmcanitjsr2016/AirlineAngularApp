@@ -169,7 +169,7 @@
                     <mat-form-field appearance="outline" fxFlex="33.33%">
                         <mat-label>Start DateTime</mat-label>
 
-                        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time"
+                        <input matInput [min]="minDate" [max]="maxDate" [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time"
                             [(ngModel)]="flightDetails.startDateTime" formControlName="startDateTime">
 
                         <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
@@ -181,7 +181,7 @@
                     <mat-form-field appearance="outline" fxFlex="33.33%">
                         <mat-label>End DateTime</mat-label>
 
-                        <input matInput [ngxMatDatetimePicker]="picker1" placeholder="Choose a date & time"
+                        <input matInput [min]="minDate" [max]="maxDate" [ngxMatDatetimePicker]="picker1" placeholder="Choose a date & time"
                             [(ngModel)]="flightDetails.endDateTime" formControlName="endDateTime">
 
                         <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>

@@ -20,6 +20,8 @@ import { SucessMessageComponent } from '../sucess-message/sucess-message.compone
 })
 export class AddAirlineComponent implements OnInit {
   flightForm: any;
+  minDate: any;
+  maxDate: any;
   selectedIndex: number = 0;
   flag = false;
   isDataAvailable = false;
@@ -174,6 +176,9 @@ export class AddAirlineComponent implements OnInit {
         });
   }
   ngOnInit(): void {
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date();
+    this.maxDate = new Date(currentYear + 1, 11, 31);
     this.loadData();
   }
 

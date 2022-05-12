@@ -19,6 +19,7 @@ import { TicketDetailsDialogComponent } from './Modals/ticket-details-dialog/tic
 import { InfoMessageComponent } from './info-message/info-message.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { FlightConfirmDialogComponent } from './flight-confirm-dialog/flight-confirm-dialog.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FlightConfirmDialogComponent } from './flight-confirm-dialog/flight-con
     TicketDetailsDialogComponent,
     InfoMessageComponent,
     ConfirmDialogComponent,
-    FlightConfirmDialogComponent    
+    FlightConfirmDialogComponent,
+    PageNotFoundComponent    
   ],
   imports: [
     BrowserModule,
